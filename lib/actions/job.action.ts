@@ -18,3 +18,8 @@ export async function getAllApprovedJobs() {
   });
   return jobs;
 }
+
+export async function getJobDetailsBySlug(slug: string) {
+  const job = await prisma.job.findUnique({ where: { slug } });
+  return job;
+}
