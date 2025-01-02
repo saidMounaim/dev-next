@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Dev Next is a platform for posting and applying to developer jobs, connecting talent with opportunities efficiently.",
 };
 
-export default function RootLayout({
+export default function GlobalLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
