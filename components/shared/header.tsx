@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import UserButton from "./user-button";
 
 export default function Header() {
   return (
@@ -27,9 +27,7 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <Button variant="secondary" asChild>
-          <Link href="/sign-in">Sign In</Link>
-        </Button>
+        <UserButton />
       </div>
     </header>
   );
