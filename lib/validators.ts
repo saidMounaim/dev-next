@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const validImageTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+
 // Sign In Schema
 export const SignInFormSchema = z.object({
   email: z
@@ -26,4 +28,33 @@ export const SignUpFormSchema = z
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
+  });
+
+// Submission job schema
+export const SubmissionJobSchema = z
+  .object({
+    title: z.string().min(2, {
+      message: "Title must be at least 2 characters.",
+    }),
+    description: z.string().optional(),
+    type: z.string().min(1, { message: "Type is required" }),
+    locationType: z.string().min(1, { message: "Location Type is required" }),
+    location: z.string().optional(),
+    salary: z
+      .number()
+      .min(10, { message: "Salary is required" })
+      .nonnegative({ message: "Salary must a positive number" }),
+    companyName: z.string().min(1, { message: "Company name is required" }),
+    applicationEmail: z.string().email().optional().or(z.literal("")),
+    applicationUrl: z.string().url().optional().or(z.literal("")),
+    companyLogoUrl: z
+      .instanceof(File)
+      .optional()
+      .refine((file) => !file || validImageTypes.includes(file.type), {
+        message: "File must be an image (jpeg, png, webp).",
+      }),
+  })
+  .refine((data) => data.locationType === "Remote", {
+    message: "Location is required",
+    path: ["location"],
   });
