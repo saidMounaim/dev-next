@@ -35,3 +35,13 @@ export function formatError(error: any) {
       : JSON.stringify(error.message);
   }
 }
+
+// string to slug
+export function toSlug(str: string): string {
+  const randomDigits = Math.floor(Math.random() * 90) + 10;
+  return str
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "")
+    .concat(`-${randomDigits}`);
+}

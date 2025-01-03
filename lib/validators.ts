@@ -54,7 +54,7 @@ export const SubmissionJobSchema = z
         message: "File must be an image (jpeg, png, webp).",
       }),
   })
-  .refine((data) => data.locationType === "Remote", {
+  .refine((data) => data.locationType !== "Remote", {
     message: "Location is required",
     path: ["location"],
   });

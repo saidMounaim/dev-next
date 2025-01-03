@@ -32,13 +32,15 @@ export default async function JobDetailsPage({
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="flex items-center gap-4">
                 <div className="bg-white p-2 rounded-lg">
-                  <Image
-                    src={`/${job.companyLogoUrl!}`}
-                    alt={`${job.companyName} logo`}
-                    width={64}
-                    height={64}
-                    className="rounded"
-                  />
+                  {job.companyLogoUrl && (
+                    <Image
+                      src={`${job.companyLogoUrl}`}
+                      alt={`${job.companyName} logo`}
+                      width={64}
+                      height={64}
+                      className="rounded"
+                    />
+                  )}
                 </div>
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-white">

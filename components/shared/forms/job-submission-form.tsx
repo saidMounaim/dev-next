@@ -24,6 +24,10 @@ import {
 } from "@/components/ui/select";
 import { jobTypes, locationTypes } from "@/constants";
 import { SubmissionJobSchema } from "@/lib/validators";
+import { toast } from "sonner";
+import { uploadFileToCloudinary } from "@/lib/actions/cloudinary.action";
+import { addJob } from "@/lib/actions/job.action";
+import { formatError, toSlug } from "@/lib/utils";
 
 export function JobSubmissionForm() {
   const form = useForm<z.infer<typeof SubmissionJobSchema>>({
@@ -41,8 +45,30 @@ export function JobSubmissionForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof SubmissionJobSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof SubmissionJobSchema>) {
+    const { companyLogoUrl } = values;
+    let logoUrl: string | undefined;
+    if (companyLogoUrl) {
+      const res = await uploadFileToCloudinary(companyLogoUrl);
+      logoUrl = res.data?.secure_url;
+    }
+
+    try {
+      const slug = toSlug(values.title);
+      const result = { ...values, slug, companyLogoUrl: logoUrl };
+      const job = await addJob(result);
+      if (!job?.success) {
+        toast.error(formatError(job?.error));
+      }
+      if (job?.success) {
+        toast.success(job.message);
+        form.reset();
+        form.setValue("companyLogoUrl", undefined);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(formatError(error));
+    }
   }
 
   return (
