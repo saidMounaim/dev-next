@@ -10,11 +10,11 @@ export interface JobProps {
   companyName: string;
   applicationEmail?: string | null;
   applicationUrl?: string | null;
-  companyLogoUrl?: string;
+  companyLogoUrl?: string | null;
   approved?: boolean;
   userId?: string | undefined;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface addJobProps {

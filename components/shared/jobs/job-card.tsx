@@ -6,14 +6,24 @@ import { timeAgo } from "@/lib/utils";
 import { JobProps } from "@/lib/types";
 import Link from "next/link";
 
-const JobCard = ({ job }: { job: JobProps }) => {
+const JobCard = ({ job, approved }: { job: JobProps; approved: boolean }) => {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300 border-cyan-200 overflow-hidden">
       <div className="bg-cyan-600 h-2" />
       <CardContent className="pt-6">
-        <h3 className="text-xl font-semibold mb-2 text-cyan-800">
-          {job.title}
-        </h3>
+        <div className="flex flex-wrap justify-between gap-3">
+          <h3 className="text-xl font-semibold mb-2 text-cyan-800">
+            {job.title}
+          </h3>
+          {!approved && (
+            <Badge
+              variant="secondary"
+              className="bg-cyan-100 text-cyan-800 hover:bg-cyan-200"
+            >
+              Not approved yet
+            </Badge>
+          )}
+        </div>
         <div className="flex items-center text-gray-600 mb-2">
           <Building2 className="w-4 h-4 mr-2 text-cyan-600" />
           <span>{job.companyName}</span>
@@ -34,12 +44,18 @@ const JobCard = ({ job }: { job: JobProps }) => {
         </Badge>
       </CardContent>
       <CardFooter className="bg-gray-50">
-        <Button
-          className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
-          asChild
-        >
-          <Link href={`/job/${job.slug}`}>More details</Link>
-        </Button>
+        {approved ? (
+          <Button
+            className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+            asChild
+          >
+            <Link href={`/job/${job.slug}`}>More details</Link>
+          </Button>
+        ) : (
+          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+            Delete Job
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

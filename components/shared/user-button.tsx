@@ -59,6 +59,10 @@ const UserButton = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuLabel className="font-normal">
+            <Link href="/my-jobs">My Jobs</Link>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
           <DropdownMenuItem>
             <form action={signOutUser} className="w-full">
               <Button

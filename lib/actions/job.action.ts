@@ -46,3 +46,12 @@ export async function addJob(values: addJobProps) {
     };
   }
 }
+
+export async function getJobsCurrentUserId() {
+  const session = await auth();
+  const jobs = await prisma.job.findMany({
+    where: { userId: session?.user?.id as string },
+    orderBy: { createdAt: "desc" },
+  });
+  return jobs;
+}
