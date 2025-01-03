@@ -5,6 +5,11 @@ import { prisma } from "../prisma";
 import { addJobProps } from "../types";
 import { revalidatePath } from "next/cache";
 
+export async function getAllJobs() {
+  const jobs = await prisma.job.findMany({ orderBy: { createdAt: "desc" } });
+  return jobs;
+}
+
 export async function getFeaturedJobs() {
   const jobs = await prisma.job.findMany({
     orderBy: { createdAt: "desc" },
@@ -71,5 +76,18 @@ export async function deleteJob(
     throw new Error("Job not found");
   }
   await prisma.job.delete({ where: { id: job.id } });
+  revalidatePath(pathname);
+}
+
+export async function ApproveJob(jobId: string, pathname: string) {
+  const session = await auth();
+  if (session?.user.role !== "admin") {
+    throw new Error("Unauthorized");
+  }
+  const job = await prisma.job.findUnique({ where: { id: jobId } });
+  if (!job) {
+    throw new Error("Job not found");
+  }
+  await prisma.job.update({ where: { id: job.id }, data: { approved: true } });
   revalidatePath(pathname);
 }

@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
-import { deleteJob } from "@/lib/actions/job.action";
+import { ApproveJob, deleteJob } from "@/lib/actions/job.action";
 
 const JobCard = ({
   job,
@@ -32,6 +32,15 @@ const JobCard = ({
       } catch (error) {
         toast.error(formatError(error));
       }
+    }
+  };
+
+  const handleApproveJob = async () => {
+    try {
+      await ApproveJob(job.id, pathname);
+      toast.success("Job has been successfully approved");
+    } catch (error) {
+      toast.error(formatError(error));
     }
   };
 
@@ -58,6 +67,14 @@ const JobCard = ({
                 onClick={handleDeleteJob}
               >
                 Delete Job
+              </Button>
+            )}
+            {!approved && session?.user.role === "admin" && (
+              <Button
+                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                onClick={handleApproveJob}
+              >
+                Appprove
               </Button>
             )}
           </div>

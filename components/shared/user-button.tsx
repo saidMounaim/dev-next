@@ -59,6 +59,11 @@ const UserButton = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          {session?.user?.role === "admin" && (
+            <DropdownMenuLabel className="font-normal">
+              <Link href="/admin/all-jobs">All Jobs</Link>
+            </DropdownMenuLabel>
+          )}
           <DropdownMenuLabel className="font-normal">
             <Link href="/my-jobs">My Jobs</Link>
           </DropdownMenuLabel>
