@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { prisma } from "../prisma";
 import { addJobProps } from "../types";
+import { revalidatePath } from "next/cache";
 
 export async function getFeaturedJobs() {
   const jobs = await prisma.job.findMany({
@@ -54,4 +55,21 @@ export async function getJobsCurrentUserId() {
     orderBy: { createdAt: "desc" },
   });
   return jobs;
+}
+
+export async function deleteJob(
+  jobId: string,
+  pathname: string,
+  userId: string
+) {
+  const session = await auth();
+  if (session?.user?.id !== userId) {
+    throw new Error("Unauthorized");
+  }
+  const job = await prisma.job.findUnique({ where: { id: jobId } });
+  if (!job) {
+    throw new Error("Job not found");
+  }
+  await prisma.job.delete({ where: { id: job.id } });
+  revalidatePath(pathname);
 }

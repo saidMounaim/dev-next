@@ -12,7 +12,12 @@ export default async function MyJobsPage() {
       <h1 className="text-3xl font-bold text-cyan-800 mb-8">My Jobs</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {jobs.map((job) => (
-          <JobCard key={job.id} job={job} approved={job.approved} />
+          <JobCard
+            key={job.id}
+            job={job}
+            approved={job.approved}
+            session={session}
+          />
         ))}
       </div>
     </main>
