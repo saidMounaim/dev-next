@@ -19,10 +19,11 @@ export async function getFeaturedJobs() {
   return jobs;
 }
 
-export async function getAllApprovedJobs() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getAllApprovedJobs(where: any) {
   const jobs = await prisma.job.findMany({
     orderBy: { createdAt: "desc" },
-    where: { approved: true },
+    where: where ? where : { approved: true },
   });
   return jobs;
 }

@@ -1,4 +1,20 @@
+import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "./prisma";
+
+const users = [
+  {
+    id: "060c39ad-6ce1-4d62-bef7-b0a0992a5b49",
+    name: "User example",
+    email: "user@example.com",
+    password: hashSync("123456", 10),
+  },
+  {
+    id: "bd80afe9-af79-4c9b-bef8-75bff595a78b",
+    name: "Admin example",
+    email: "admin@example.com",
+    password: hashSync("123456", 10),
+  },
+];
 
 const developerJobs = [
   {
@@ -13,8 +29,9 @@ const developerJobs = [
     companyName: "DevTech Solutions",
     applicationEmail: "apply@devtechsolutions.com",
     applicationUrl: "https://devtechsolutions.com/jobs/full-stack-developer",
-    companyLogoUrl: "default-company-logo.jpg",
+    companyLogoUrl: "/default-company-logo.jpg",
     approved: true,
+    userId: "060c39ad-6ce1-4d62-bef7-b0a0992a5b49",
   },
   {
     title: "Frontend Developer",
@@ -28,8 +45,9 @@ const developerJobs = [
     companyName: "WebMasters Inc.",
     applicationEmail: "careers@webmasters.com",
     applicationUrl: "https://webmasters.com/jobs/frontend-developer",
-    companyLogoUrl: "default-company-logo.jpg",
+    companyLogoUrl: "/default-company-logo.jpg",
     approved: true,
+    userId: "060c39ad-6ce1-4d62-bef7-b0a0992a5b49",
   },
   {
     title: "Backend Developer",
@@ -43,8 +61,9 @@ const developerJobs = [
     companyName: "TechWave",
     applicationEmail: "jobs@techwave.com",
     applicationUrl: "https://techwave.com/careers/backend-developer",
-    companyLogoUrl: "default-company-logo.jpg",
+    companyLogoUrl: "/default-company-logo.jpg",
     approved: true,
+    userId: "bd80afe9-af79-4c9b-bef8-75bff595a78b",
   },
   {
     title: "Mobile Developer",
@@ -58,14 +77,17 @@ const developerJobs = [
     companyName: "AppMakers",
     applicationEmail: "join@appmakers.com",
     applicationUrl: "https://appmakers.com/jobs/mobile-developer",
-    companyLogoUrl: "default-company-logo.jpg",
+    companyLogoUrl: "/default-company-logo.jpg",
     approved: true,
+    userId: "bd80afe9-af79-4c9b-bef8-75bff595a78b",
   },
 ];
 
 async function main() {
   try {
     await prisma.job.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.user.createMany({ data: users });
     await prisma.job.createMany({ data: developerJobs });
 
     console.log("Database seeded successfully");

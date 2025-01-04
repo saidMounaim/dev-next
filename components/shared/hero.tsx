@@ -28,8 +28,9 @@ export default function Hero() {
                 size="lg"
                 variant="outline"
                 className="text-white border-white bg-transparent hover:text-cyan-500"
+                asChild
               >
-                Post a Job
+                <Link href={`/submit-job`}>Post a Job</Link>
               </Button>
             </div>
           </div>

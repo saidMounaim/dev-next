@@ -8,25 +8,6 @@ export default function Header() {
         <Link href="/" className="text-2xl font-bold">
           Dev Next
         </Link>
-        <nav>
-          <ul className="flex space-x-4">
-            <li>
-              <Link href="/jobs" className="hover:text-cyan-200">
-                Jobs
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="hover:text-cyan-200">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-cyan-200">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </nav>
         <UserButton />
       </div>
     </header>

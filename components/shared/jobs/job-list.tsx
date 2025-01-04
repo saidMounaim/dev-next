@@ -4,9 +4,10 @@ import { auth } from "@/auth";
 import { Suspense } from "react";
 import JobCardSkeleton from "../skeletons/job-card-skeleton";
 
-export default async function JobList() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function JobList({ where }: any) {
   const session = await auth();
-  const jobs = await getAllApprovedJobs();
+  const jobs = await getAllApprovedJobs(where);
   return (
     <>
       {jobs.length === 0 && (
