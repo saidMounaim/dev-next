@@ -6,7 +6,7 @@ export interface JobProps {
   type: string;
   locationType: string;
   location?: string | null;
-  salary: number;
+  salary: string;
   companyName: string;
   applicationEmail?: string | null;
   applicationUrl?: string | null;
