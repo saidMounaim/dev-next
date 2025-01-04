@@ -61,14 +61,15 @@ const JobCard = ({
                 Not approved yet
               </Badge>
             )}
-            {session && job.userId === session.user?.id && (
-              <Button
-                className="w-full bg-red-600 hover:bg-red-700 text-white"
-                onClick={handleDeleteJob}
-              >
-                Delete Job
-              </Button>
-            )}
+            {(session && job.userId === session.user?.id) ||
+              (session?.user?.role === "admin" && (
+                <Button
+                  className="w-full bg-red-600 hover:bg-red-700 text-white"
+                  onClick={handleDeleteJob}
+                >
+                  Delete Job
+                </Button>
+              ))}
             {!approved && session?.user.role === "admin" && (
               <Button
                 className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
