@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dev Next
+
+Dev Next is a job platform built for developers, enabling job postings and applications with Next.js, Tailwind CSS, Prisma, and NextAuth. Open to contributions during development.
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository: `git clone https://github.com/saidMounaim/dev-next.git`
+Install dependencies:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Note: Some dependencies may have not yet been upadated to support React 19. If you get any errors about depencency compatability, run the following:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install --legacy-peer-deps
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a .env file:
 
-## Learn More
+```
+DATABASE_URL=""
+NEXTAUTH_SECRET=""
+CLOUDINARY_CLOUD_NAME=""
+CLOUDINARY_API_KEY=""
+CLOUDINARY_API_SECRET=""
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Prisma Studio
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To open Prisma Studio, run the following command:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+npx prisma studio
+```
 
-## Deploy on Vercel
+## Seed Database
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To seed the database with sample data, run the following command:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npx tsx ./db/seed
+```
+
+## Built With
+
+- [Next.js](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Shadcn/ui](https://ui.shadcn.com/)
+- [Auth.js](https://authjs.dev/)
+
+## Contribution
+
+All kind of contributions are welcome, please feel free to submit pull requests.
